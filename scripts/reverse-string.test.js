@@ -13,5 +13,5 @@ test('reverse string with non letters', () => {
 })
 
 test('test if input is not a string', () => {
-  expect(reverse('string')).toBe('gnirts')
+  expect(reverse(1234)).toBe('input is not a string')
 })
