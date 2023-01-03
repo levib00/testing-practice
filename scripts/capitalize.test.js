@@ -18,3 +18,7 @@ test('test on a string where first char is not a letter', () => {
 test('string with no letters', () => {
   expect(capitalize('1234')).toBe('1234')
 })
+
+test('test on non string', () => {
+  expect(capitalize(1234)).toBe('input is not a string')
+})
