@@ -12,15 +12,34 @@ const encode = (shift, alphabet) => {
 }
 
 export const caesarCipher = (shift, str) => {
-  const alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+  const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
   const indexArray = []
   for (let i = 0; i < str.length; i ++) {
-    indexArray.push(alphabet.indexOf(str.charAt(i)))
+    if (/^[A-Z]$/i.test(str.charAt(i))) {
+      const lowerChar = str.charAt(i).toLowerCase()
+      indexArray.push({
+        char : alphabet.indexOf(lowerChar),
+        isUpperCase : str.charAt(i) === str.charAt(i).toUpperCase()
+      })
+    } else {
+      indexArray.push({
+        char : str.charAt(i),
+        isUpperCase : false
+      })
+    }
   }
   const encodedAlphabet = encode(shift, alphabet);
   let encodedString = ''
   for (let index of indexArray) {
-    encodedString = encodedString += encodedAlphabet[index]
+    if (/^\d+$/.test(index.char)) {
+      if (!index.isUpperCase) {
+        encodedString = encodedString += encodedAlphabet[index.char]
+      } else {
+        encodedString = encodedString += encodedAlphabet[index.char].toUpperCase()
+      }
+    } else {
+      encodedString = encodedString += index.char
+    }
   }
   return encodedString
 }
